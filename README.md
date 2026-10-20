@@ -2,7 +2,16 @@
 
 > 烽火台 · 无公网IP也能操控本地AI | No Public IP? No Problem — Control Your Local AI via Feishu
 
+![GitHub stars](https://img.shields.io/github/stars/SoulTreasure/WorkBuddy-Beacon?style=social)
+![GitHub forks](https://img.shields.io/github/forks/SoulTreasure/WorkBuddy-Beacon?style=social)
+![License](https://img.shields.io/github/license/SoulTreasure/WorkBuddy-Beacon)
+![Node](https://img.shields.io/badge/Node.js-18%2B-green)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
+
 [![Star History](https://api.star-history.com/svg?repos=SoulTreasure/WorkBuddy-Beacon&type=Date)](https://star-history.com/#SoulTreasure/WorkBuddy-Beacon&Date)
+
+> 📢 **更名公告 | Notice**：本项目已于 2026-10-20 由 `QClaw-Beacon` 正式更名为 **`WorkBuddy-Beacon`**，完成全面品牌迁移。原仓库地址自动重定向，Star / Fork 不受影响。
+> This repo has been renamed from `QClaw-Beacon` to **`WorkBuddy-Beacon`**. Old links redirect automatically; stars and forks are preserved.
 
 ---
 
@@ -220,4 +229,13 @@ ps aux | grep feishu_relay  # 查看脚本是否在运行
 ## License
 
 MIT License · SoulTreasure · 2026
+
+---
+
+## 📦 版本 | Releases
+
+| 版本 | 日期 | 说明 |
+|---|---|---|
+| [v0.2.0](https://github.com/SoulTreasure/WorkBuddy-Beacon/releases/tag/v0.2.0) | 2026-10-20 | 🔥 品牌迁移：QClaw-Beacon → WorkBuddy-Beacon，全面适配 WorkBuddy 环境 |
+| v0.1.0 | 2026-07-29 | MVP 首发：飞书烽火台 + relay v8 引擎 |
 
