@@ -9,7 +9,7 @@
 
 **🇨🇳 中文：**
 
-大多数 QClaw + 飞书集成方案要求：
+大多数 WorkBuddy + 飞书集成方案要求：
 1. **公网可访问的服务器**（接收飞书事件回调）
 2. **固定 IP 或域名**（配置飞书事件订阅）
 
@@ -19,7 +19,7 @@
 
 **🇺🇸 English:**
 
-Most QClaw + Feishu integration solutions require:
+Most WorkBuddy + Feishu integration solutions require:
 1. **A publicly accessible server** (to receive Feishu event webhooks)
 2. **A fixed IP or domain** (to configure Feishu event subscriptions)
 
@@ -42,8 +42,8 @@ flowchart LR
         C[🚢 feishu_relay.js<br/>v8 Core Engine]
         D[📨 relay/inbox.json<br/>Append-only]
         E[📤 relay/outbox.json<br/>Append-only]
-        F[🤖 QClaw Agent<br/>heartbeat / cron]
-        G[⚙️ QClaw Core<br/>LLM + Tools]
+        F[🤖 WorkBuddy Agent<br/>heartbeat / cron]
+        G[⚙️ WorkBuddy Core<br/>LLM + Tools]
     end
 
     A -- "发消息 / Send msg<br/>HTTPS" --> B
@@ -78,12 +78,12 @@ flowchart LR
 
 **🇨🇳 中文说明：**
 - 每个阶段都是单向流动，**不会出现循环写**
-- QClaw Agent 通过文件系统读取 inbox、写入 outbox，**永远不会直接调用飞书 API**
+- WorkBuddy Agent 通过文件系统读取 inbox、写入 outbox，**永远不会直接调用飞书 API**
 - 飞书↔本地通信完全由 `feishu_relay.js` 把关，避免双向写入冲突
 
 **🇺🇸 English:**
 - Each stage flows in one direction only — **no circular writes**
-- The QClaw Agent reads inbox and writes outbox through the file system — **never directly calls the Feishu API**
+- The WorkBuddy Agent reads inbox and writes outbox through the file system — **never directly calls the Feishu API**
 - All Feishu↔local communication is gated by `feishu_relay.js`, avoiding bidirectional write conflicts
 
 ---

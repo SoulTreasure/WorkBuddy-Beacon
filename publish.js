@@ -9,7 +9,7 @@
  *
  * 功能：
  *   1. 读取所有文件
- *   2. 创建/更新仓库 QClaw-Beacon
+ *   2. 创建/更新仓库 WorkBuddy-Beacon
  *   3. 创建 release v0.1.0 (draft)
  *   4. 上传所有文件作为 release assets
  */
@@ -24,7 +24,7 @@ const readline = require('readline');
 const REPO_DIR  = 'C:\\Users\\78277\\AppData\\Local\\Temp\\openclaw-feishu-beacon';
 const REPO_PATH = 'C:\\Users\\78277\\AppData\\Local\\Temp\\feishu-beacon-git';
 const OWNER     = 'SoulTreasure';
-const REPO_NAME = 'QClaw-Beacon';
+const REPO_NAME = 'WorkBuddy-Beacon';
 const TAG       = 'v0.1.0';
 const VERSION   = '0.1.0';
 
@@ -44,7 +44,7 @@ const GitHub = {
         method: options.method || 'GET',
         headers: {
           Authorization: `Bearer ${this._token}`,
-          'User-Agent': 'QClaw-Beacon-Publisher/0.1',
+          'User-Agent': 'WorkBuddy-Beacon-Publisher/0.1',
           'Accept': 'application/vnd.github+json',
           ...(options.body ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(options.body) } : {}),
         },
@@ -75,8 +75,8 @@ const GitHub = {
       method: 'POST',
       body: JSON.stringify({
         name       : REPO_NAME,
-        description: 'QClaw + 飞书无公网IP消息中继 · Be a beacon in the dark',
-        homepage   : 'https://qclaw.ai',
+        description: 'WorkBuddy + 飞书无公网IP消息中继 · Be a beacon in the dark',
+        homepage   : 'https://workbuddy.ai',
         private    : false,
         has_issues : true,
         has_wiki   : false,
@@ -236,7 +236,7 @@ async function prompt(question) {
 // ─── 主流程 ───────────────────────────────────────────────────
 async function main() {
   console.log('═══════════════════════════════════════');
-  console.log('  QClaw-Beacon: Feishu Edition');
+  console.log('  WorkBuddy-Beacon: Feishu Edition');
   console.log('  GitHub 发布脚本 v1.0');
   console.log('═══════════════════════════════════════\n');
 
@@ -247,8 +247,8 @@ async function main() {
     // 尝试从 openclaw.json env 段读取
     const cfgPaths = [
       process.env.OPENCLAW_CONFIG_PATH,
-      'C:\\Users\\78277\\.qclaw\\openclaw.json',
-      path.join(process.env.HOME || '', '.qclaw', 'openclaw.json'),
+      'C:\\Users\\78277\\.workbuddy\\openclaw.json',
+      path.join(process.env.HOME || '', '.workbuddy', 'openclaw.json'),
     ].filter(Boolean);
 
     for (const p of cfgPaths) {

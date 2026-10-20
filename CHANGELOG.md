@@ -6,7 +6,7 @@
 
 **核心能力：**
 - 飞书群消息拉取 → inbox（Append-only JSON，7天滚动）
-- QClaw/Agent 回复 → outbox → 飞书发送（单向数据流）
+- WorkBuddy/Agent 回复 → outbox → 飞书发送（单向数据流）
 - 无公网 IP 需求，彻底替代 Webhook
 
 **支持场景：**

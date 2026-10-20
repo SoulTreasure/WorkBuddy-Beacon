@@ -491,14 +491,14 @@ const Msg = {
   /** 判断是否应触发强制回复 */
   requiresReply(item) {
     if (item.priority === 'high') return true;
-    return /@_user_1|@QClaw|？|\?/i.test(item.text || '');
+    return /@_user_1|@WorkBuddy|？|\?/i.test(item.text || '');
   },
 
   /** 添加签名（若已有签名则不重复添加） */
   sign(reply) {
-    const sig = '\n\n— QClaw';
+    const sig = '\n\n— WorkBuddy';
     if (!T.str(reply)) return sig;
-    return reply.includes('— QClaw') ? reply : reply + sig;
+    return reply.includes('— WorkBuddy') ? reply : reply + sig;
   },
 };
 
@@ -769,13 +769,13 @@ class RelayCore {
 // ══════════════════════════════════════════════════════════════
 
 function loadConfig() {
-  const WORK        = process.env.QCLAW_WORKSPACE
-    || 'C:\\Users\\78277\\.qclaw\\workspace';
+  const WORK        = process.env.WORKBUDDY_WORKSPACE
+    || 'C:\\Users\\78277\\.workbuddy\\workspace';
   const RELAY_DIR   = path.join(WORK, 'relay');
   const CONFIG_PATH = process.env.OPENCLAW_CONFIG_PATH
-    || 'C:\\Users\\78277\\.qclaw\\openclaw.json';
+    || 'C:\\Users\\78277\\.workbuddy\\openclaw.json';
 
-  // 从 openclaw.json 的 env 段读取凭证（QClaw 推荐方式）
+  // 从 openclaw.json 的 env 段读取凭证（WorkBuddy 推荐方式）
   const cfgResult = File.readJSON(CONFIG_PATH, {});
   const cfg       = Result.isOk(cfgResult) ? cfgResult.value : {};
   const feishuEnv = cfg.env || {};

@@ -2,9 +2,9 @@
 const https = require('https');
 const fs = require('fs');
 
-const TOKEN  = JSON.parse(fs.readFileSync('C:/Users/78277/.qclaw/openclaw.json', 'utf8')).env.GITHUB_TOKEN;
+const TOKEN  = JSON.parse(fs.readFileSync('C:/Users/78277/.workbuddy/openclaw.json', 'utf8')).env.GITHUB_TOKEN;
 const OWNER = 'SoulTreasure';
-const REPO  = 'QClaw-Beacon';
+const REPO  = 'WorkBuddy-Beacon';
 const BRANCH = 'main';
 
 function gh(path, method, body) {
@@ -14,7 +14,7 @@ function gh(path, method, body) {
       method: method || 'GET',
       headers: {
         Authorization: `Bearer ${TOKEN}`,
-        'User-Agent': 'QClaw-Publisher/1.0',
+        'User-Agent': 'WorkBuddy-Publisher/1.0',
         Accept: 'application/vnd.github+json',
         'Content-Type': 'application/json',
       },
@@ -71,7 +71,7 @@ function encode64(str) { return Buffer.from(str).toString('base64'); }
 
   // Step 3: 创建 commit
   const commitR = await gh(`/repos/${OWNER}/${REPO}/git/commits`, 'POST', JSON.stringify({
-    message: 'feat: QClaw-Beacon 烽火台 MVP v0.1.0\n\n- 中英双语 README\n- 完整架构文档\n- feishu_relay.js v8 核心引擎\n- MVP_MODE / QUICKSTART 使用手册\n- 微信联系方式：wxid_qakb4voa8iyn12',
+    message: 'feat: WorkBuddy-Beacon 烽火台 MVP v0.1.0\n\n- 中英双语 README\n- 完整架构文档\n- feishu_relay.js v8 核心引擎\n- MVP_MODE / QUICKSTART 使用手册\n- 微信联系方式：wxid_qakb4voa8iyn12',
     tree: treeR.data.sha,
     parents: [],
   }));

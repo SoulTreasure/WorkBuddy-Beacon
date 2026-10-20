@@ -1,9 +1,9 @@
 const https = require('https');
 const fs = require('fs');
 
-const TOKEN  = JSON.parse(fs.readFileSync('C:/Users/78277/.qclaw/openclaw.json', 'utf8')).env.GITHUB_TOKEN;
+const TOKEN  = JSON.parse(fs.readFileSync('C:/Users/78277/.workbuddy/openclaw.json', 'utf8')).env.GITHUB_TOKEN;
 const OWNER = 'SoulTreasure';
-const REPO  = 'QClaw-Beacon';
+const REPO  = 'WorkBuddy-Beacon';
 const BRANCH = 'main';
 
 function gh(apiPath, method, body) {
@@ -15,7 +15,7 @@ function gh(apiPath, method, body) {
       method: method || 'GET',
       headers: {
         Authorization: `Bearer ${TOKEN}`,
-        'User-Agent': 'QClaw-Publisher/1.0',
+        'User-Agent': 'WorkBuddy-Publisher/1.0',
         Accept: 'application/vnd.github+json',
         'Content-Type': 'application/json',
       },

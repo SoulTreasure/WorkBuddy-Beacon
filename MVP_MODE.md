@@ -1,17 +1,17 @@
-# QClaw-Beacon: Feishu Edition（烽火台模式）
+# WorkBuddy-Beacon: Feishu Edition（烽火台模式）
 
-> 无公网 IP 也能远程控制 QClaw —— 利用飞书群消息作为中继指令通道
+> 无公网 IP 也能远程控制 WorkBuddy —— 利用飞书群消息作为中继指令通道
 
 ## 核心原理
 
 ```
 远程用户（手机飞书）
     ↓ 发送指令消息到飞书群
-飞书群 → QClaw 飞书 Bot → relay/feishu_inbox.json
+飞书群 → WorkBuddy 飞书 Bot → relay/feishu_inbox.json
     ↓
 feishu_relay.js（每2分钟 cron）读取 inbox
     ↓
-QClaw Agent 处理指令 → 写入 relay/feishu_outbox.json
+WorkBuddy Agent 处理指令 → 写入 relay/feishu_outbox.json
     ↓
 feishu_relay.js（每2分钟 cron）发送回复到飞书群
     ↓
@@ -23,9 +23,9 @@ feishu_relay.js（每2分钟 cron）发送回复到飞书群
 ## 适用场景
 
 - 家庭/办公室 PC 无公网 IP，无法远程直连
-- 需要手机端随时操控 QClaw（查文件、改配置、发指令）
+- 需要手机端随时操控 WorkBuddy（查文件、改配置、发指令）
 - 想在飞书群沉淀 AI 助手的回答历史
-- 多设备党：手机+平板+另一台电脑都能控制同一台 QClaw
+- 多设备党：手机+平板+另一台电脑都能控制同一台 WorkBuddy
 
 ## 适用系统
 
@@ -36,10 +36,10 @@ feishu_relay.js（每2分钟 cron）发送回复到飞书群
 
 ## 前提条件
 
-1. 一台能运行 QClaw 的 Windows/macOS/Linux 电脑（需保持开机）
+1. 一台能运行 WorkBuddy 的 Windows/macOS/Linux 电脑（需保持开机）
 2. 飞书账号 + 创建一个专用飞书群（用作指令通道）
 3. 飞书自建应用 App ID + App Secret（[飞书开放平台](https://open.feishu.cn/)创建）
-4. QClaw 已安装并运行
+4. WorkBuddy 已安装并运行
 
 ## 快速安装
 
@@ -56,7 +56,7 @@ feishu_relay.js（每2分钟 cron）发送回复到飞书群
    - `im:chat.member:bot_get_version_list`
 6. 发布应用版本
 
-### Step 2：配置 QClaw 环境变量
+### Step 2：配置 WorkBuddy 环境变量
 
 在系统环境变量中添加（Windows 用「系统属性 → 环境变量」，macOS 用 `~/.bash_profile` 或 `~/.zshrc`）：
 
@@ -71,7 +71,7 @@ FEISHU_APP_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 把 `feishu_relay.js` 放到任意目录，例如：
 ```
-C:\Users\你的用户名\.qclaw\workspace\bot-router\feishu_relay.js
+C:\Users\你的用户名\.workbuddy\workspace\bot-router\feishu_relay.js
 ```
 
 ### Step 4：创建 relay 目录
@@ -98,9 +98,9 @@ const CONFIG = {
 
 **如何获取群 ID**：把飞书机器人拉进群后，在群设置里看「群信息」→「群 ID」
 
-### Step 6：配置 QClaw Cron
+### Step 6：配置 WorkBuddy Cron
 
-在 QClaw 中创建两个定时任务（用 cron 工具）：
+在 WorkBuddy 中创建两个定时任务（用 cron 工具）：
 
 **Cron 1：拉取飞书消息（每2分钟）**
 ```
@@ -119,7 +119,7 @@ name: "飞书烽火台·指令处理"
 schedule: { kind: "every", everyMs: 420000 }
 payload: {
   kind: "agentTurn",
-  message: "请读取 relay/feishu_inbox.json，找出所有 status 为 'pending' 的指令，作为 QClaw 助手理解并回应（中文，简洁）。必要时可读取 workspace 文件。把你的回复写入 relay/feishu_outbox.json（追加一个对象：{id, group, chatId, reply, status:'done'}），同时把 inbox 中该条目的 status 改为 'done'。如果没有 pending 指令，只用一句话说明即可。"
+  message: "请读取 relay/feishu_inbox.json，找出所有 status 为 'pending' 的指令，作为 WorkBuddy 助手理解并回应（中文，简洁）。必要时可读取 workspace 文件。把你的回复写入 relay/feishu_outbox.json（追加一个对象：{id, group, chatId, reply, status:'done'}），同时把 inbox 中该条目的 status 改为 'done'。如果没有 pending 指令，只用一句话说明即可。"
 }
 delivery: { mode: "none" }
 ```
@@ -134,23 +134,23 @@ delivery: { mode: "none" }
 帮我查一下今天的日计划
 ```
 
-### QClaw 收到后的回复
+### WorkBuddy 收到后的回复
 
-QClaw 会在几分钟内（≤7分钟）在同一个飞书群里回复你：
+WorkBuddy 会在几分钟内（≤7分钟）在同一个飞书群里回复你：
 
 ```
-📋 QClaw 今日计划 · 2026-07-29
+📋 WorkBuddy 今日计划 · 2026-07-29
 🎯 今日执行计划
 【P0 必须完成】
 1. 回复小飞侠延保问题
 2. GitHub 发布准备
 ...
-— QClaw
+— WorkBuddy
 ```
 
 ### 发送文件/图片
 
-在飞书群里发文件，QClaw 会自动下载到 `relay/inbox_attachments/` 目录。
+在飞书群里发文件，WorkBuddy 会自动下载到 `relay/inbox_attachments/` 目录。
 
 ## 架构说明
 
@@ -158,14 +158,14 @@ QClaw 会在几分钟内（≤7分钟）在同一个飞书群里回复你：
 ┌─────────────────────────────────────────────┐
 │                  飞书群                      │
 │  [用户消息] → Bot接收 → relay/feishu_inbox  │
-│  [QClaw 回复] ← Bot发送 ← relay/feishu_outbox │
+│  [WorkBuddy 回复] ← Bot发送 ← relay/feishu_outbox │
 └─────────────────────────────────────────────┘
                     ↑
         feishu_relay.js（每2分钟）
                     ↑
-              QClaw Cron
+              WorkBuddy Cron
                     ↑
-              QClaw Agent（每7分钟处理 inbox）
+              WorkBuddy Agent（每7分钟处理 inbox）
 ```
 
 ## 故障排除
@@ -173,8 +173,8 @@ QClaw 会在几分钟内（≤7分钟）在同一个飞书群里回复你：
 **Q：飞书收不到消息？**
 A：检查飞书 Bot 是否已加入目标群；检查飞书开放平台事件订阅是否正确配置；检查 `FEISHU_APP_ID` 和 `FEISHU_APP_SECRET` 环境变量是否正确。
 
-**Q：QClaw 不回复？**
-A：检查 `relay/feishu_inbox.json` 是否有新的 pending 消息；检查 QClaw 两个 cron 是否在运行（用 `openclaw cron list` 查看）；检查 cron 最近一次运行状态是否为 `ok`。
+**Q：WorkBuddy 不回复？**
+A：检查 `relay/feishu_inbox.json` 是否有新的 pending 消息；检查 WorkBuddy 两个 cron 是否在运行（用 `openclaw cron list` 查看）；检查 cron 最近一次运行状态是否为 `ok`。
 
 **Q：消息重复发送？**
 A：`feishu_relay.js` 有幂等保护（基于消息 ID 去重），同一消息不会重复处理。如果持续重复，检查 cron 是否配置了多个实例。
@@ -207,7 +207,7 @@ const CONFIG = {
 
 ### 自定义 Agent 身份
 
-修改第二个 cron 的 `message` payload，把"QClaw"换成你喜欢的名字和风格：
+修改第二个 cron 的 `message` payload，把"WorkBuddy"换成你喜欢的名字和风格：
 ```
 message: "请读取 relay/feishu_inbox.json...作为'<你的名字>'..."
 ```
